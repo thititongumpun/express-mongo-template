@@ -1,18 +1,23 @@
 import express, { Express, Request, Response } from 'express';
-import { route } from './routes/test.route';
+import morgan from 'morgan';
+import helmet from "helmet";
+
+import { router } from './api/v1/todos/todo.route';
 import config from "./config";
 import connectDB from './config/db';
 
 const app: Express = express();
 const port = config.PORT;
 
+app.use(morgan('dev'));
+app.use(helmet());
 app.use(express.json());
 
 app.get('/', (_: Request, res: Response) => {
-  res.send(process.env.NODE_ENV);
+  res.send('Hello World');
 });
 
-app.use('/api', route);
+app.use('/api', router);
 
 app.listen(port, () => {
   connectDB()
