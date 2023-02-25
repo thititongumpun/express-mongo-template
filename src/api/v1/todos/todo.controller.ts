@@ -1,3 +1,4 @@
+import { TodoDocument } from './todo.model';
 import { Request, Response, NextFunction } from "express";
 import { createTodo, findTodos } from "./todo.service";
 import { CreateTodoInput } from './todo.schema';
@@ -17,6 +18,6 @@ export async function findAll(
 
 export const createTodoHandler = async (req: Request<{}, {}, CreateTodoInput>, res: Response) => {
   const body = req.body;
-  const todo: any = await createTodo(body);
+  const todo: TodoDocument = await createTodo(body);
   return res.send(todo);
 }
